@@ -51,4 +51,4 @@ if __name__ == "__main__":
     # Send goal to the move_base action server
     future = client.send_pose_goal(args.x, args.y, args.theta)
     rclpy.spin_until_future_complete(client, future)
-    client.get_logger("Pose goal reached.")
+    client.get_logger().info("Pose goal reached.")

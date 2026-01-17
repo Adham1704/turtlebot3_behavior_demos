@@ -14,6 +14,7 @@ const ColorThresholdMap hsv_threshold_dict = {
     {"red", {160, 180, 220, 255, 0, 255}},
     {"green", {40, 90, 220, 255, 0, 255}},
     {"blue", {100, 150, 220, 255, 0, 255}},
+    // edit these value to detect different colors
 };
 
 // Look for an object of a particular color

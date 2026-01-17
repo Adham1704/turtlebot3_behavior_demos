@@ -6,6 +6,7 @@ import cv2
 import cv_bridge
 import rclpy
 from rclpy.duration import Duration
+from rclpy.qos import qos_profile_sensor_data
 import py_trees
 from sensor_msgs.msg import Image
 
@@ -28,7 +29,7 @@ class LookForObject(py_trees.behaviour.Behaviour):
     simple HSV color space thresholding and blob detection.
     """
 
-    def __init__(self, name, color, node, img_timeout=3.0, visualize=True):
+    def __init__(self, name, color, node, img_timeout=3.0, visualize=True, image_topic="/camera/camera/color/image_raw"):
         super(LookForObject, self).__init__(name)
         self.color = color
         self.node = node
@@ -37,6 +38,7 @@ class LookForObject(py_trees.behaviour.Behaviour):
         self.img_timeout = Duration(nanoseconds=img_timeout * 1e9)
         self.viz_window_name = "Image with Detections"
         self.visualize = visualize
+        self.image_topic = image_topic
         if self.visualize:
             plt.figure(1)
             plt.axis("off")
@@ -59,7 +61,9 @@ class LookForObject(py_trees.behaviour.Behaviour):
         self.start_time = self.node.get_clock().now()
         self.latest_img_msg = None
         self.img_sub = self.node.create_subscription(
-            Image, "/camera/image_raw", self.img_callback, 10
+            Image, self.image_topic, self.img_callback, qos_profile_sensor_data
+            # Image, "/camera/camera/color/image_raw", self.img_callback, 10
+            # "/camera/image_raw" --- IGNORE ---
         )
 
     def update(self):

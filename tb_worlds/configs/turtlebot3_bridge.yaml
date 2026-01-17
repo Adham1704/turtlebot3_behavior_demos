@@ -49,7 +49,7 @@
   direction: ROS_TO_GZ
 
 # replace image_bridge
-- ros_topic_name: "/camera/image_raw"
+- ros_topic_name: "/camera/camera/color/image_raw"
   gz_topic_name: "/realsense_camera"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"

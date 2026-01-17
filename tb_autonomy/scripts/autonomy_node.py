@@ -28,7 +28,7 @@ from tb_behaviors.vision import LookForObject
 
 
 default_location_file = os.path.join(
-    get_package_share_directory("tb_worlds"), "maps", "sim_house_locations.yaml"
+    get_package_share_directory("tb_worlds"), "maps", "ros_locations.yaml"
 )
 
 
@@ -39,6 +39,7 @@ class AutonomyBehavior(Node):
         self.declare_parameter("tree_type", value="queue")
         self.declare_parameter("enable_vision", value=True)
         self.declare_parameter("target_color", value="blue")
+        self.declare_parameter("image_topic", value="/camera/camera/color/image_raw")
 
         # Parse locations YAML file and shuffle the location list.
         location_file = self.get_parameter("location_file").value
@@ -51,6 +52,7 @@ class AutonomyBehavior(Node):
         self.tree_type = self.get_parameter("tree_type").value
         self.enable_vision = self.get_parameter("enable_vision").value
         self.target_color = self.get_parameter("target_color").value
+        self.image_topic = self.get_parameter("image_topic").value
         self.create_behavior_tree(self.tree_type)
 
         self.tree.node.get_logger().info(f"Using location file: {location_file}")
@@ -89,6 +91,7 @@ class AutonomyBehavior(Node):
                                     f"find_{self.target_color}_{loc}",
                                     self.target_color,
                                     tree.node,
+                                    image_topic=self.image_topic,
                                 ),
                             ],
                             memory=True,
@@ -132,6 +135,7 @@ class AutonomyBehavior(Node):
         if self.enable_vision:
             seq.add_child(
                 LookForObject(f"find_{self.target_color}", self.target_color, tree.node)
+                #LookForObject(f"find_{self.target_color}", self.target_color, tree.node, image_topic=self.image_topic)
             )
         return tree
 

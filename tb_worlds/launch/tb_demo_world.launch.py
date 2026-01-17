@@ -1,8 +1,3 @@
-# This file has been modified from
-# https://github.com/ros-navigation/navigation2/blob/9d60bc0a3ca4e201250254c866c4eedc1441ed4e/nav2_bringup/launch/tb3_simulation_launch.py
-# Modification:
-#   - Separate nav2 bringup from robot simulation
-
 import os
 from ament_index_python.packages import get_package_share_directory
 
@@ -46,7 +41,7 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         "map",
-        default_value=os.path.join(bringup_dir, "maps", "sim_house_map.yaml"),
+        default_value=os.path.join(bringup_dir, "maps", "ros_map.yaml"),
     )
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -93,22 +88,7 @@ def generate_launch_description():
         "robot_name", default_value="turtlebot", description="name of the robot"
     )
 
-    sim_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(bringup_dir, "launch", "tb_world.launch.py")
-        ),
-        launch_arguments={
-            "namespace": namespace,
-            "use_sim_time": use_sim_time,
-        }.items(),
-    )
-
-    # Block Spawner
-    block_spawner_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(bringup_dir, "launch", "block_spawner.launch.py")
-        ),
-    )
+    # --- REMOVED GAZEBO SIMULATION COMMANDS HERE (sim_cmd and block_spawner_cmd) ---
 
     rviz_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -156,9 +136,9 @@ def generate_launch_description():
     ld.add_action(declare_use_respawn_cmd)
 
     # Add the actions to launch all of the navigation nodes
-    ld.add_action(sim_cmd)
+    # ld.add_action(sim_cmd)            <-- REMOVED
     ld.add_action(rviz_cmd)
     ld.add_action(bringup_cmd)
-    ld.add_action(block_spawner_cmd)
+    # ld.add_action(block_spawner_cmd)  <-- REMOVED
 
     return ld

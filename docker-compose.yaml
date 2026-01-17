@@ -20,24 +20,19 @@ services:
       dockerfile: docker/Dockerfile
       args:
         ROS_DISTRO: ${ROS_DISTRO:?}
+        INSTALL_TB3: 1 
       target: base
-    # Interactive shell
     stdin_open: true
     tty: true
-    # Networking and IPC for ROS 2
     network_mode: host
     ipc: host
-    # Needed to display graphical applications
     privileged: True
     environment:
-      # Needed to define a TurtleBot model type (3 or 4)
       - TURTLEBOT_MODEL=${TURTLEBOT_MODEL:-3}
-      # Allows graphical programs in the container.
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
       - NVIDIA_DRIVER_CAPABILITIES=all
     volumes:
-      # Allows graphical programs in the container.
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority
 
@@ -49,6 +44,8 @@ services:
       context: .
       dockerfile: docker/Dockerfile
       target: overlay
+      args:
+        - INSTALL_TB3=1
 
   # Developer container
   dev:
@@ -62,11 +59,10 @@ services:
         - UID=${UID:-1000}
         - GID=${UID:-1000}
         - USERNAME=${USERNAME:-devuser}
+        - INSTALL_TB3=1
     volumes:
-      # Mount the source code
       - ./tb_autonomy:/overlay_ws/src/tb_autonomy:rw
       - ./tb_worlds:/overlay_ws/src/tb_worlds:rw
-      # Mount colcon build artifacts for faster rebuilds
       - ./.colcon/build/:/overlay_ws/build/:rw
       - ./.colcon/install/:/overlay_ws/install/:rw
       - ./.colcon/log/:/overlay_ws/log/:rw

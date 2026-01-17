@@ -9,7 +9,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_tb_worlds = get_package_share_directory("tb_worlds")
-    default_world_dir = join(pkg_tb_worlds, "maps", "sim_house_locations.yaml")
+    default_world_dir = join(pkg_tb_worlds, "maps", "ros_map.yaml")
 
     return LaunchDescription(
         [
@@ -34,6 +34,11 @@ def generate_launch_description():
                 default_value=TextSubstitution(text="True"),
                 description="Enable vision behaviors. If false, do navigation only.",
             ),
+            DeclareLaunchArgument(
+                "image_topic",
+                default_value=TextSubstitution(text="/camera/color/image_raw"),
+                description="RGB image topic for vision (e.g. RealSense color image).",
+            ),
             # Main autonomy node
             Node(
                 package="tb_autonomy",
@@ -47,6 +52,7 @@ def generate_launch_description():
                         "target_color": LaunchConfiguration("target_color"),
                         "tree_type": LaunchConfiguration("tree_type"),
                         "enable_vision": LaunchConfiguration("enable_vision"),
+                        "image_topic": LaunchConfiguration("image_topic"),
                     }
                 ],
             ),

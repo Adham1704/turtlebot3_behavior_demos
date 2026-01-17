@@ -14,7 +14,7 @@ def generate_launch_description():
     pkg_dir = get_package_share_directory("tb_worlds")
 
     # Parse locations YAML file
-    yaml_config_path = os.path.join(pkg_dir, "maps", "sim_house_locations.yaml")
+    yaml_config_path = os.path.join(pkg_dir, "maps", "ros_locations.yaml")
     with open(yaml_config_path, "r") as f:
         locations = yaml.load(f, Loader=yaml.FullLoader)
 
