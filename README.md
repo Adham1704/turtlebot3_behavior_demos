@@ -1,3 +1,54 @@
+# TurtleBot Behavior Demos (Real-World Adaptation)
+
+This repository is a modified version of the [TurtleBot3 Behavior Demos](https://github.com/sea-bass/turtlebot3_behavior_demos) tailored for **Autonomous Robot Navigation Using Behavior Trees on TurtleBot3** for my team ROS electives project.
+
+While the original repository demonstrates autonomous behavior with a simulated robot, this version has been adapted for deployment on a **Real TurtleBot3 (Burger)** equipped with a Realsense camera, using Ubuntu 24.04 and ROS 2 Jazzy.
+
+The autonomy is designed using **behavior trees**. For more information, refer to [this blog post](https://roboticseabass.com/2021/05/08/introduction-to-behavior-trees/) or the [Behavior Trees in Robotics and AI textbook](https://arxiv.org/abs/1709.00084).
+
+---
+
+## 🚀 Project Contributions & Modifications
+
+This project builds upon the work of Sebastian Castro and contributors. The following changes were implemented to transition from simulation to a robust real-world application:
+
+* **Real-World Integration (Gazebo Removal):** The launch pipeline was modified to remove the Gazebo simulation engine, allowing direct control of physical hardware via the `turtlebot3_bringup` and `nav2` stacks.
+* **Navigation Parameter Tuning:** PID controllers and costmap parameters were fine-tuned to handle real-world friction, sensor noise, and dynamic obstacles.
+* **SLAM on Custom Map:** Performed SLAM (Simultaneous Localization and Mapping) to generate a high-fidelity map (`ros_map.yaml`) of the physical testing environment.
+* **Path Planning Trajectory:** Optimized the planner server settings to generate smoother paths for the physical robot, reducing jerky movements.
+* **Initial Pose Estimation:** Configured the AMCL localization to properly initialize the robot's pose based on the physical map origin.
+
+---
+
+## 👥 Credits
+
+**Original Author:**
+* **Sebastian Castro**, 2021-2025
+
+**Key Contributors (Original Repo):**
+* [Kemal Bektaş](https://github.com/bektaskemal) -- Upgrade to BehaviorTree.CPP v4.
+* [ElSayed ElSheikh](https://github.com/elsayedelsheikh) -- Upgrade to new Gazebo.
+
+**Real-World Adaptation:**
+* **Ibrahim's Project** -- Hardware integration, navigation tuning, and deployment.
+
+---
+
+## 🛠️ Real-World Execution
+
+To run this project on the physical robot, follow the sequence below. Ensure your PC and Robot are on the same network and `ROS_DOMAIN_ID` is configured correctly.
+
+### 1. On the TurtleBot3 (Robot)
+SSH into the robot and launch the base drivers and camera.
+
+```bash
+# Terminal 1: Base Driver
+export TURTLEBOT3_MODEL=burger
+ros2 launch turtlebot3_bringup robot.launch.py
+
+# Terminal 2: Camera Driver
+ros2 launch realsense2_camera rs_launch.py
+
 # TurtleBot Behavior Demos
 In this repository, we demonstrate autonomous behavior with a simulated [ROBOTIS TurtleBot3](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/#overview) or [Clearpath TurtleBot 4](https://clearpathrobotics.com/turtlebot-4/) using Ubuntu 24.04 and ROS 2 Jazzy.
 
