@@ -1,6 +1,6 @@
 # TurtleBot Behavior Demos (Real-World Adaptation)
 
-This repository is a modified version of the [TurtleBot3 Behavior Demos](https://github.com/sea-bass/turtlebot3_behavior_demos) tailored for **Autonomous Robot Navigation Using Behavior Trees on TurtleBot3** for my team ROS electives project.
+This repository is a modified version of the [TurtleBot3 Behavior Demos](https://github.com/sea-bass/turtlebot3_behavior_demos) tailored for **Autonomous Robot Navigation Using Behavior Trees on TurtleBot3** for my team ROS subject final project.
 
 While the original repository demonstrates autonomous behavior with a simulated robot, this version has been adapted for deployment on a **Real TurtleBot3 (Burger)** equipped with a Realsense camera, using Ubuntu 24.04 and ROS 2 Jazzy.
 
