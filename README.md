@@ -29,9 +29,12 @@ This project builds upon the work of Sebastian Castro and contributors. The foll
 * [Kemal Bektaş](https://github.com/bektaskemal) -- Upgrade to BehaviorTree.CPP v4.
 * [ElSayed ElSheikh](https://github.com/elsayedelsheikh) -- Upgrade to new Gazebo.
 
-**Real-World Adaptation:**
-* **Ibrahim Adham and Brian Lim Tze Zhen Project** -- Hardware integration, navigation tuning, and deployment.
+**Key Contributors (Forked Repo):**
+* [Ibrahim Adham Bin Mohd Aziz](https://github.com/Adham1704)
+* [Brian Lim Tze Zhen](https://github.com/Brian-Lim-Tze-Zhen)
 
+**Real-World Adaptation:**
+- Hardware integration, navigation tuning, and deployment.
 ---
 
 ## 🛠️ Real-World Execution
