@@ -30,7 +30,7 @@ This project builds upon the work of Sebastian Castro and contributors. The foll
 * [ElSayed ElSheikh](https://github.com/elsayedelsheikh) -- Upgrade to new Gazebo.
 
 **Real-World Adaptation:**
-* **Ibrahim's Project** -- Hardware integration, navigation tuning, and deployment.
+* **Ibrahim Adham and Brian Lim Tze Zhen Project** -- Hardware integration, navigation tuning, and deployment.
 
 ---
 
